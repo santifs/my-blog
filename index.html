@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Agency - Start Bootstrap Theme</title>
+  <title>Santiago Fernandez Scagliusi</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +21,7 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
   <!-- Custom styles for this template -->
-  <link href="css/agency.min.css" rel="stylesheet">
+  <link href="css/agency.css" rel="stylesheet">
 
 </head>
 
@@ -30,7 +30,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Santiago Fernandez Scagliusi</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -38,16 +38,16 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+            <a class="nav-link js-scroll-trigger" href="#services">Skills</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+            <a class="nav-link js-scroll-trigger" href="#portfolio">Projects</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            <a class="nav-link js-scroll-trigger" href="#about">Work Experience</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+            <a class="nav-link js-scroll-trigger" href="#team">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
@@ -61,46 +61,97 @@
   <header class="masthead">
     <div class="container">
       <div class="intro-text">
-        <div class="intro-lead-in">Welcome To Our Studio!</div>
-        <div class="intro-heading text-uppercase">It's Nice To Meet You</div>
-        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
+          <div class="team-member">
+            <img class="mx-auto rounded-circle" src="img/profile-photo.png" alt="">
+            <h2>Santiago Fernandez Scagliusi</h2>
+            <p>Electrical and Electronics Engineer</p>
+            <ul class="list-inline social-buttons">
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/santifs/">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/santifs">
+                  <i class="fab fa-github"></i>
+                </a>
+              </li>
+          	  <li class="list-inline-item">
+                <a href="mailto: sanfersca@gmail.com">
+                  <i class="far fa-envelope"></i>
+                </a>
+          	  </li>
+            </ul>
+          </div>
+        <!--<div class="intro-lead-in">Welcome To Our Studio!</div>
+        <div class="intro-heading">Santiago Fernandez Scagliusi</div>
+        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">About</a>-->
       </div>
     </div>
   </header>
 
-  <!-- Services -->
+  <!-- About -->
+  <section class="bg-light page-section" id="team">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading text-uppercase">About</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-justify">
+          <p class="large text-muted">A highly motivated Electrical and Electronics Engineering Student, with strong knowledge of circuit analysis and passionate about next-generation technologies.</p>
+          <p class="large text-muted">Self-taught and team player, with projects experience using VHDL, RTL Design, C/C++ for embedded systems, and Altium for PCB Design (schematics, placement, routing and assembling).</p>
+          <p class="large text-muted">Looking for challenging internships in a talented and innovative team to learn about microelectronics and contribute to bring new ideas to reality.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Skills -->
   <section class="page-section" id="services">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-uppercase">Services</h2>
+          <h2 class="section-heading text-uppercase">Technical Skills</h2>
           <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
         </div>
       </div>
-      <div class="row text-center">
+      <div class="row">
         <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-          </span>
-          <h4 class="service-heading">E-Commerce</h4>
-          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+          <img class="img-fluid d-block mx-auto" src="img/chip-icon.png" alt="">
+          <h4 class="service-heading text-center">Hardware</h4>
+          <ul class="text-muted">
+            <li>RTL Design, FPGA Programming in VHDL with Xilinx ISE</li>
+            <li>PCB Schematics, Placement and Routing using Altium Designer</li>
+            <li>Power Electronics Transient Analysis with PSpice</li>
+            <li>ARM Cortex-M0 Architecture</li>
+            <li>MCU - STM32F070RB, MSP430G2553, Motorola 68K</li>
+            <li>Bus protocols - UART, I2C, SPI, CAN</li>
+            <li>Electronics Troubleshoot and Repair - SMD soldering, Oscilloscope, Multimeter, Logical Analyzer</li>
+          </ul>
         </div>
         <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-          </span>
-          <h4 class="service-heading">Responsive Design</h4>
-          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+          <img class="img-fluid d-block mx-auto" src="img/code-icon.png" alt="">
+          <h4 class="service-heading text-center">Software</h4>
+          <ul class="text-muted">
+            <li>C/C++, C# and Assembly for Embedded Systems</li>
+            <li>PLC Programming with Step7</li>
+            <li>Version Control with Git and GitHub</li>
+            <li>MATLAB and Simulink for Motor Modeling and Signal Processing</li>
+            <li>Microsoft Excel for Power Transmission Lines Analysis</li>
+          </ul>
         </div>
         <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-          </span>
-          <h4 class="service-heading">Web Security</h4>
-          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+          <img class="img-fluid d-block mx-auto" src="img/web-icon.png" alt="">
+          <h4 class="service-heading text-center">Web Development</h4>
+          <ul class="text-muted">
+            <li>HTML and CSS</li>
+            <li>Other</li>
+            <li>Other</li>
+            <li>Other</li>
+            <li>Other</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -111,7 +162,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-uppercase">Portfolio</h2>
+          <h2 class="section-heading text-uppercase">Projects</h2>
           <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
         </div>
       </div>
@@ -123,11 +174,11 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/01-thumbnail.jpg" alt="">
+            <img class="img-fluid" src="img/portfolio/simon-thumbnail.jpeg" alt="Simon Game">
           </a>
           <div class="portfolio-caption">
-            <h4>Threads</h4>
-            <p class="text-muted">Illustration</p>
+            <h4>Simon Game</h4>
+            <p class="text-muted">VHDL Design</p>
           </div>
         </div>
         <div class="col-md-4 col-sm-6 portfolio-item">
@@ -137,11 +188,11 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/02-thumbnail.jpg" alt="">
+            <img class="img-fluid" src="img/portfolio/ultrasonic-thumbnail.jpg" alt="">
           </a>
           <div class="portfolio-caption">
-            <h4>Explore</h4>
-            <p class="text-muted">Graphic Design</p>
+            <h4>Ultrasonic Sensor</h4>
+            <p class="text-muted">VHDL Design</p>
           </div>
         </div>
         <div class="col-md-4 col-sm-6 portfolio-item">
@@ -151,11 +202,11 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/03-thumbnail.jpg" alt="">
+            <img class="img-fluid" src="img/portfolio/pcb-thumbnail.jpeg" alt="">
           </a>
           <div class="portfolio-caption">
-            <h4>Finish</h4>
-            <p class="text-muted">Identity</p>
+            <h4>Power Distribution PCB</h4>
+            <p class="text-muted">PCB Design</p>
           </div>
         </div>
         <div class="col-md-4 col-sm-6 portfolio-item">
@@ -165,11 +216,11 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/04-thumbnail.jpg" alt="">
+            <img class="img-fluid" src="img/portfolio/gui-system.png" alt="">
           </a>
           <div class="portfolio-caption">
-            <h4>Lines</h4>
-            <p class="text-muted">Branding</p>
+            <h4>GUI Temp Control</h4>
+            <p class="text-muted">C/C++ & C# programming</p>
           </div>
         </div>
         <div class="col-md-4 col-sm-6 portfolio-item">
@@ -179,11 +230,11 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/05-thumbnail.jpg" alt="">
+            <img class="img-fluid" src="img/portfolio/piano-thumbnail.png" alt="">
           </a>
           <div class="portfolio-caption">
-            <h4>Southwest</h4>
-            <p class="text-muted">Website Design</p>
+            <h4>Digital Piano</h4>
+            <p class="text-muted">Assembly & C programming</p>
           </div>
         </div>
         <div class="col-md-4 col-sm-6 portfolio-item">
@@ -193,11 +244,11 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/06-thumbnail.jpg" alt="">
+            <img class="img-fluid" src="img/portfolio/cpu-simulator.png" alt="">
           </a>
           <div class="portfolio-caption">
-            <h4>Window</h4>
-            <p class="text-muted">Photography</p>
+            <h4>CPU Simulator</h4>
+            <p class="text-muted">C programming</p>
           </div>
         </div>
       </div>
@@ -209,7 +260,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-uppercase">About</h2>
+          <h2 class="section-heading text-uppercase">Work Experience</h2>
           <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
         </div>
       </div>
@@ -285,131 +336,12 @@
     </div>
   </section>
 
-  <!-- Team -->
-  <section class="bg-light page-section" id="team">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-          <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="team-member">
-            <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt="">
-            <h4>Kay Garland</h4>
-            <p class="text-muted">Lead Designer</p>
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-facebook-f"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="team-member">
-            <img class="mx-auto rounded-circle" src="img/team/2.jpg" alt="">
-            <h4>Larry Parker</h4>
-            <p class="text-muted">Lead Marketer</p>
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-facebook-f"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="team-member">
-            <img class="mx-auto rounded-circle" src="img/team/3.jpg" alt="">
-            <h4>Diana Pertersen</h4>
-            <p class="text-muted">Lead Developer</p>
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-facebook-f"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-8 mx-auto text-center">
-          <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Clients -->
-  <section class="py-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 col-sm-6">
-          <a href="#">
-            <img class="img-fluid d-block mx-auto" src="img/logos/envato.jpg" alt="">
-          </a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <a href="#">
-            <img class="img-fluid d-block mx-auto" src="img/logos/designmodo.jpg" alt="">
-          </a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <a href="#">
-            <img class="img-fluid d-block mx-auto" src="img/logos/themeforest.jpg" alt="">
-          </a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <a href="#">
-            <img class="img-fluid d-block mx-auto" src="img/logos/creative-market.jpg" alt="">
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Contact -->
   <section class="page-section" id="contact">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-uppercase">Contact Us</h2>
+          <h2 class="section-heading text-uppercase">Contact me!</h2>
           <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
         </div>
       </div>
@@ -424,10 +356,6 @@
                 </div>
                 <div class="form-group">
                   <input class="form-control" id="email" type="email" placeholder="Your Email *" required="required" data-validation-required-message="Please enter your email address.">
-                  <p class="help-block text-danger"></p>
-                </div>
-                <div class="form-group">
-                  <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" required="required" data-validation-required-message="Please enter your phone number.">
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
@@ -505,14 +433,15 @@
             <div class="col-lg-8 mx-auto">
               <div class="modal-body">
                 <!-- Project Details Go Here -->
-                <h2 class="text-uppercase">Project Name</h2>
-                <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                <img class="img-fluid d-block mx-auto" src="img/portfolio/01-full.jpg" alt="">
-                <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                <h2 class="text-uppercase">Simon Game</h2>
+                <p class="item-intro text-muted">VHDL memory game for FPGAs.</p>
+                <img class="img-fluid d-block mx-auto" src="img/portfolio/simon-demo.gif" alt="Simon Game demo gif">
+                <p>Simon Game is a VHDL memory game that displays incremental random sequences on a LED Matrix by creating a finite state machine and implementing RAM and ROM models.</p>
+                <p>Also, it incorporates a binary to BCD to 7-segment conversion to visualize the current level on the FPGA 7-seg Display.</p>
                 <ul class="list-inline">
-                  <li>Date: January 2017</li>
-                  <li>Client: Threads</li>
-                  <li>Category: Illustration</li>
+                  <li><b>Date:</b> May 2019</li>
+                  <li><b>Category:</b> VHDL</li>
+                  <li><b>Core skills:</b> VHDL and RTL Design, Nexys 4 DDR FPGA, Xilinx ISE, Test Benches, IP Core, Git.</li>
                 </ul>
                 <button class="btn btn-primary" data-dismiss="modal" type="button">
                   <i class="fas fa-times"></i>
@@ -539,14 +468,15 @@
             <div class="col-lg-8 mx-auto">
               <div class="modal-body">
                 <!-- Project Details Go Here -->
-                <h2 class="text-uppercase">Project Name</h2>
+                <h2 class="text-uppercase">Ultrasonic Car Parking Sensor</h2>
                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                <img class="img-fluid d-block mx-auto" src="img/portfolio/02-full.jpg" alt="">
-                <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                <img class="img-fluid d-block mx-auto" src="img/portfolio/ultrasonic-demo.gif" alt="Ultrasonic sensor demo gif">
+                <p>Implemented an ultrasonic sensor to measure and visualize distances on the Nexys 4 DDR FPGA 7-seg Display and LEDs.</p>
+            	<p>Incorporated a buzzer that sounds according to proximity by using a single multiplexed clock signal.</p>
                 <ul class="list-inline">
-                  <li>Date: January 2017</li>
-                  <li>Client: Explore</li>
-                  <li>Category: Graphic Design</li>
+                  <li><b>Date:</b> April 2019</li>
+                  <li><b>Category:</b> VHDL</li>
+                  <li><b>Core skills:</b> VHDL, Nexys 4 DDR FPGA, Xilinx ISE, Test Benches, Buzzer, Ultrasonic sensor.</li>
                 </ul>
                 <button class="btn btn-primary" data-dismiss="modal" type="button">
                   <i class="fas fa-times"></i>
@@ -573,14 +503,18 @@
             <div class="col-lg-8 mx-auto">
               <div class="modal-body">
                 <!-- Project Details Go Here -->
-                <h2 class="text-uppercase">Project Name</h2>
+                <h2 class="text-uppercase">Power Distribution PCB</h2>
                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                <img class="img-fluid d-block mx-auto" src="img/portfolio/03-full.jpg" alt="">
-                <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                <img class="img-fluid d-block mx-auto" src="img/portfolio/art18c.jpg" alt="">
+                <img class="img-fluid d-block mx-auto" src="img/portfolio/pcb-thumbnail.jpeg" alt="">
+                <p>Redesigned and assembled a Power Distribution 4-layer PCB that controlled the power from the battery to all the electrical devices on the racecar.</p>
+                <p>Delivered up to 12 Amps to each of the 11 outputs with minimum temperature rise, through an in-depth study of PCB layout, trace width and power and ground planes.</p>
+                <p>Added current and voltage limiting circuits to protect the MSP430 inputs by using Zener diodes and resistors.</p>
+                <p>Integrated current sensing circuits to collect output power data and send it to a Datalogger via CAN bus.</p>
                 <ul class="list-inline">
-                  <li>Date: January 2017</li>
-                  <li>Client: Finish</li>
-                  <li>Category: Identity</li>
+                  <li><b>Date:</b> May 2017 - September 2018</li>
+                  <li><b>Category:</b> PCB Design</li>
+                  <li><b>Core skills:</b> Altium Designer, Analog Design, C programming in Code Composer Studio, Saturn PCB Toolkit, MSP430 Microcontroller, SMD soldering, Oscilloscope, Multimeter.</li>
                 </ul>
                 <button class="btn btn-primary" data-dismiss="modal" type="button">
                   <i class="fas fa-times"></i>
@@ -607,14 +541,16 @@
             <div class="col-lg-8 mx-auto">
               <div class="modal-body">
                 <!-- Project Details Go Here -->
-                <h2 class="text-uppercase">Project Name</h2>
-                <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                <img class="img-fluid d-block mx-auto" src="img/portfolio/04-full.jpg" alt="">
-                <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                <h2 class="text-uppercase">GUI Temperature Control</h2>
+                <p class="item-intro text-muted">Temperature control system with an STM32</p>
+                <img class="img-fluid d-block mx-auto" src="img/portfolio/gui-system.png" alt="Temperature Control System Hardware">
+                <img class="img-fluid d-block mx-auto" src="img/portfolio/gui-thumbnail.png" alt="GUI for Temperature Control">
+                <p>Created a Windows GUI to read data from an LM35 temperature sensor and control servos and stepper motors connected to an STM32.</p>
+                <p>Integrated CAN bus to communicate with other STM32 by using the MCP2515 shield.</p>
                 <ul class="list-inline">
-                  <li>Date: January 2017</li>
-                  <li>Client: Lines</li>
-                  <li>Category: Branding</li>
+                  <li><b>Date:</b> February 2018</li>
+                  <li><b>Category:</b> C/C++ and C# programming</li>
+                  <li><b>Core skills:</b> C/C++, C#, Visual Studio, Keil IDE, UART/SPI/I2C protocols, STM32 Microcontroller, CAN bus.</li>
                 </ul>
                 <button class="btn btn-primary" data-dismiss="modal" type="button">
                   <i class="fas fa-times"></i>
@@ -641,14 +577,15 @@
             <div class="col-lg-8 mx-auto">
               <div class="modal-body">
                 <!-- Project Details Go Here -->
-                <h2 class="text-uppercase">Project Name</h2>
-                <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                <img class="img-fluid d-block mx-auto" src="img/portfolio/05-full.jpg" alt="">
-                <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                <h2 class="text-uppercase">Digital Piano</h2>
+                <p class="item-intro text-muted">Assembly and C program for a Motorola 68k</p>
+                <img class="img-fluid d-block mx-auto" src="img/portfolio/piano-demo.gif" alt="Digital Piano demo gif">
+                <p>Developed a program using Assembly and C for a Motorola 68K that makes a buzzer sound in different tones.</p>
+                <p>Implemented an algorithm to scan a matrix keypad and display the key on a 7-segment display.</p>
                 <ul class="list-inline">
-                  <li>Date: January 2017</li>
-                  <li>Client: Southwest</li>
-                  <li>Category: Website Design</li>
+                  <li><b>Date:</b> February 2017</li>
+                  <li><b>Category:</b> Assembly and C programming</li>
+                  <li><b>Core skills:</b> Assembly language, C, Motorola 68K, Embedded Systems.</li>
                 </ul>
                 <button class="btn btn-primary" data-dismiss="modal" type="button">
                   <i class="fas fa-times"></i>
@@ -675,14 +612,15 @@
             <div class="col-lg-8 mx-auto">
               <div class="modal-body">
                 <!-- Project Details Go Here -->
-                <h2 class="text-uppercase">Project Name</h2>
+                <h2 class="text-uppercase">CPU Simulator</h2>
                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                <img class="img-fluid d-block mx-auto" src="img/portfolio/06-full.jpg" alt="">
-                <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                <img class="img-fluid d-block mx-auto" src="img/portfolio/cpu-simulator.png" alt="">
+                <p>Created a C program to simulate and understand a Von Neumann architecture CPU with 8 registers, 16 bits memory, condition flags and program counter register.</p>
+                <p>Implemented the fetch-decode-execute cycle for 19 instructions by using binary operations.</p>
                 <ul class="list-inline">
-                  <li>Date: January 2017</li>
-                  <li>Client: Window</li>
-                  <li>Category: Photography</li>
+                  <li><b>Date:</b> February 2015</li>
+                  <li><b>Category:</b> C programming</li>
+                  <li><b>Core skills:</b> C programming, C-Free IDE, bit masking, CPU architecture.</li>
                 </ul>
                 <button class="btn btn-primary" data-dismiss="modal" type="button">
                   <i class="fas fa-times"></i>
