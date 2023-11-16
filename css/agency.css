@@ -507,7 +507,7 @@ header.masthead .intro-text .intro-heading {
     float: left;
     width: 41%;
     padding: 0 20px 20px 30px;
-    text-align: right;
+    text-align: left;
   }
   .timeline > li .timeline-image {
     left: 50%;
