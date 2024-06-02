@@ -1,12 +1,12 @@
+import os
 from flask import Flask, request, redirect
 import requests
-import os
 
 app = Flask(__name__)
 
 CLIENT_KEY = os.getenv('CLIENT_KEY')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
-REDIRECT_URI = os.getenv('REDIRECT_URI')
+REDIRECT_URI = os.getenv('REDIRECT_URI', 'https://santiagofs.com/callback')
 
 @app.route('/')
 def home():
@@ -17,7 +17,7 @@ def login():
     authorization_url = (
         f"https://www.tiktok.com/auth/authorize?"
         f"client_key={CLIENT_KEY}&response_type=code&scope=user.info.basic,video.list&"
-        f"redirect_uri={REDIRECT_URI}&state=YOUR_STATE"
+        f"redirect_uri={REDIRECT_URI}"
     )
     return redirect(authorization_url)
 
