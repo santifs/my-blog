@@ -1,0 +1,326 @@
+<html><head><base href="https://websim.ai/study-planner-calendar-pdf-ical/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planificador de Estudio - Calendario PDF y iCal</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/es.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ical.js/1.5.0/ical.min.js"></script>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #f2f2f7;
+    color: #1c1c1e;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  h1 {
+    color: #007aff;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 30px;
+    font-size: 24px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  label {
+    font-weight: 600;
+    color: #3a3a3c;
+    display: block;
+    margin-bottom: 5px;
+  }
+  input[type="number"], 
+  input[type="date"],
+  select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d1d6;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  input[type="number"]:focus, 
+  input[type="date"]:focus,
+  select:focus {
+    outline: none;
+    border-color: #007aff;
+    box-shadow: 0 0 0 3px rgba(0,122,255,0.2);
+  }
+  button {
+    background-color: #007aff;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  #pdfPreview {
+    width: 100%;
+    height: 600px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  #downloadIcal {
+    background-color: #34c759;
+  }
+  #downloadIcal:hover {
+    background-color: #2da84e;
+  }
+  @media (max-width: 480px) {
+    .container {
+      padding: 20px;
+    }
+    h1 {
+      font-size: 20px;
+    }
+    input[type="number"], 
+    input[type="date"],
+    select,
+    button {
+      font-size: 16px;
+      padding: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Planificador de Estudio - Calendario PDF y iCal</h1>
+    <form id="studyPlanForm">
+      <div>
+        <label for="numTopics">Número de temas:</label>
+        <input type="number" id="numTopics" min="1" max="100" required>
+      </div>
+      <div>
+        <label for="hoursPerDay">Horas de estudio por día:</label>
+        <input type="number" id="hoursPerDay" min="1" max="24" required>
+      </div>
+      <div>
+        <label for="includeWeekends">¿Incluir fines de semana?</label>
+        <select id="includeWeekends">
+          <option value="yes">Sí</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+      <div>
+        <label for="startDate">Fecha de inicio:</label>
+        <input type="date" id="startDate" required>
+      </div>
+      <button type="submit">Generar Calendario de Estudio PDF</button>
+    </form>
+    <button id="downloadIcal" style="display: none;">Descargar iCal</button>
+    <iframe id="pdfPreview"></iframe>
+  </div>
+
+  <script>
+    moment.locale('es');
+    const { jsPDF } = window.jspdf;
+
+    const form = document.getElementById('studyPlanForm');
+    const numTopicsInput = document.getElementById('numTopics');
+    const hoursPerDayInput = document.getElementById('hoursPerDay');
+    const includeWeekendsInput = document.getElementById('includeWeekends');
+    const startDateInput = document.getElementById('startDate');
+    const pdfPreview = document.getElementById('pdfPreview');
+    const downloadIcalButton = document.getElementById('downloadIcal');
+
+    let studyPlan = [];
+
+    // Establece la fecha mínima como hoy
+    startDateInput.min = moment().format('YYYY-MM-DD');
+    // Establece la fecha por defecto como hoy
+    startDateInput.value = moment().format('YYYY-MM-DD');
+
+    form.addEventListener('submit', generateStudyPlan);
+
+    function generateStudyPlan(e) {
+      e.preventDefault();
+      const numTopics = parseInt(numTopicsInput.value);
+      const hoursPerDay = parseInt(hoursPerDayInput.value);
+      const includeWeekends = includeWeekendsInput.value === 'yes';
+      const startDate = moment(startDateInput.value);
+      const hoursPerTopic = 5;
+
+      let topics = Array.from({ length: numTopics }, (_, i) => ({
+        name: `Tema ${i + 1}`,
+        hours: hoursPerTopic
+      }));
+
+      let totalHours = numTopics * hoursPerTopic;
+      let currentDate = startDate.clone().startOf('day').hour(9); // Empezar a las 9 AM
+      studyPlan = [];
+
+      while (totalHours > 0) {
+        if (includeWeekends || (currentDate.day() !== 0 && currentDate.day() !== 6)) {
+          let dailyHours = hoursPerDay;
+          let dailyTopics = [];
+
+          for (let topic of topics) {
+            if (topic.hours > 0 && dailyHours > 0) {
+              let studyTime = Math.min(topic.hours, dailyHours);
+              dailyTopics.push({
+                name: topic.name,
+                hours: studyTime
+              });
+              topic.hours -= studyTime;
+              dailyHours -= studyTime;
+              totalHours -= studyTime;
+            }
+          }
+
+          if (dailyTopics.length > 0) {
+            studyPlan.push({
+              date: currentDate.clone(),
+              topics: dailyTopics
+            });
+          }
+        }
+        currentDate.add(1, 'days').hour(9); // Reiniciar a las 9 AM del día siguiente
+      }
+
+      generateCalendarPDF(studyPlan);
+      downloadIcalButton.style.display = 'block';
+    }
+
+    function generateCalendarPDF(studyPlan) {
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.width;
+      const pageHeight = doc.internal.pageSize.height;
+      const margin = 10;
+      const calendarWidth = pageWidth - 2 * margin;
+      const calendarHeight = pageHeight - 2 * margin - 20;
+      const cellWidth = calendarWidth / 7;
+      const cellHeight = calendarHeight / 6;
+
+      let currentMonth = studyPlan[0].date.clone().startOf('month');
+      let pageCount = 0;
+
+      while (pageCount < studyPlan.length) {
+        if (pageCount > 0) {
+          doc.addPage();
+        }
+
+        // Fondo del calendario
+        doc.setFillColor(249, 249, 255);
+        doc.rect(margin, margin, calendarWidth, calendarHeight + 20, 'F');
+
+        // Título del mes
+        doc.setFontSize(20);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(0, 122, 255);
+        doc.text(currentMonth.format('MMMM YYYY'), pageWidth / 2, margin + 15, null, null, 'center');
+
+        // Días de la semana
+        const weekdays = moment.weekdaysShort(true);
+        doc.setFontSize(12);
+        doc.setTextColor(100, 100, 100);
+        weekdays.forEach((day, index) => {
+          doc.text(day, margin + cellWidth * index + cellWidth / 2, margin + 35, null, null, 'center');
+        });
+
+        // Días del mes
+        let week = 0;
+        let day = currentMonth.clone().startOf('week');
+        const monthEnd = currentMonth.clone().endOf('month');
+
+        while (day.isSameOrBefore(monthEnd)) {
+          for (let i = 0; i < 7; i++) {
+            const x = margin + cellWidth * i;
+            const y = margin + cellHeight * week + 45;
+
+            // Celda del día
+            doc.setDrawColor(230, 230, 230);
+            doc.setFillColor(255, 255, 255);
+            doc.roundedRect(x, y, cellWidth, cellHeight, 2, 2, 'FD');
+
+            if (day.month() === currentMonth.month()) {
+              doc.setFontSize(14);
+              doc.setFont("helvetica", "bold");
+              doc.setTextColor(50, 50, 50);
+              doc.text(day.format('D'), x + 5, y + 15);
+
+              // Buscar si hay estudio programado para este día
+              const studyDay = studyPlan.find(d => d.date.isSame(day, 'day'));
+              if (studyDay) {
+                doc.setFontSize(8);
+                doc.setFont("helvetica", "normal");
+                doc.setTextColor(0, 122, 255);
+                studyDay.topics.forEach((topic, index) => {
+                  doc.text(`${topic.name} (${topic.hours}h)`, x + 5, y + 25 + index * 10);
+                });
+                pageCount++;
+              }
+            }
+
+            day.add(1, 'day');
+          }
+          week++;
+        }
+
+        currentMonth.add(1, 'month');
+      }
+
+      const pdfDataUri = doc.output('datauristring');
+      pdfPreview.src = pdfDataUri;
+    }
+
+    downloadIcalButton.addEventListener('click', generateICalFile);
+
+    function generateICalFile() {
+      const cal = new ICAL.Component(['vcalendar', [], []]);
+      cal.addPropertyWithValue('prodid', '-//WebSim Study Planner//EN');
+      cal.addPropertyWithValue('version', '2.0');
+
+      studyPlan.forEach(day => {
+        let startTime = day.date.clone();
+        day.topics.forEach(topic => {
+          const event = new ICAL.Component('vevent');
+          const endTime = startTime.clone().add(topic.hours, 'hours');
+
+          event.addPropertyWithValue('summary', `Estudiar: ${topic.name}`);
+          event.addPropertyWithValue('dtstart', ICAL.Time.fromJSDate(startTime.toDate(), true));
+          event.addPropertyWithValue('dtend', ICAL.Time.fromJSDate(endTime.toDate(), true));
+          event.addPropertyWithValue('dtstamp', ICAL.Time.now());
+
+          cal.addSubcomponent(event);
+          startTime = endTime;
+        });
+      });
+
+      const icalString = cal.toString();
+      const blob = new Blob([icalString], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'plan_de_estudio.ics';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
