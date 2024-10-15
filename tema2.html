@@ -83,34 +83,35 @@
     <script>
         const quizData = [
             {
-                question: "1. Considera la siguiente secuencia de instrucciones:\n\n<pre>MOV.W #1234, R5\nMOV.W R5, &2000\nMOV.B R5, &2002</pre>\n\n¿Cuál será el contenido de las direcciones de memoria 2000, 2001, 2002 y 2003 después de ejecutar estas instrucciones?",
+                question: "1. Considera la siguiente secuencia de instrucciones:\n\n<pre>MOV.W #1234h, R5\nMOV.W R5, &2000h\nMOV.B R5, &2002h</pre>\n\n¿Cuál será el contenido de las direcciones de memoria 2000h, 2001h, 2002h y 2003h después de ejecutar estas instrucciones?",
                 options: [
-                    "a) 2000: 34; 2001: 12; 2002: 34; 2003: sin cambios",
-                    "b) 2000: 12; 2001: 34; 2002: 34; 2003: sin cambios",
-                    "c) 2000: 34; 2001: 12; 2002: 34; 2003: 12",
-                    "d) 2000: 12; 2001: 34; 2002: 34; 2003: 00"
+                    "a) 2000h: 34h; 2001h: 12h; 2002h: 34h; 2003h: sin cambios",
+                    "b) 2000h: 12h; 2001h: 34h; 2002h: 34h; 2003h: sin cambios",
+                    "c) 2000h: 34h; 2001h: 12h; 2002h: 34h; 2003h: 12h",
+                    "d) 2000h: 12h; 2001h: 34h; 2002h: 34h; 2003h: 00h"
                 ],
                 correct: 0,
-                explanation: "La respuesta correcta es <strong>a) 2000: 34, 2001: 12, 2002: 34, 2003: sin cambios</strong>.<br>\
+                explanation: "La respuesta correcta es <strong>a) 2000h: 34h; 2001h: 12h; 2002h: 34h; 2003h: sin cambios</strong>.<br>\
                 <p>Análisis paso a paso:</p>\
                 <ol>\
-                  <li><strong>MOV.W #1234, R5</strong> - Carga el valor decimal 1234 en R5.</li>\
-                  <li><strong>MOV.W R5, &2000</strong> - Mueve el contenido de R5 a la dirección 2000.\
+                  <li><strong>MOV.W #1234h, R5</strong>\
                     <ul>\
-                      <li>Como el MSP430 es little-endian, el byte menos significativo (34) se almacena en 2000 y el más significativo (12) en 2001.</li>\
+                      <li>Carga el valor hexadecimal 1234h en R5.</li>\
                     </ul>\
                   </li>\
-                  <li><strong>MOV.B R5, &2002</strong> - Mueve solo el byte menos significativo de R5 (34) a la dirección 2002.\
+                  <li><strong>MOV.W R5, &2000h</strong>\
                     <ul>\
-                      <li>La dirección 2003 no se modifica.</li>\
+                      <li>Mueve el contenido de R5 (1234h) a la dirección 2000h.</li>\
+                      <li>Como el MSP430 es little-endian, el byte menos significativo (34h) se almacena en 2000h y el más significativo (12h) en 2001h.</li>\
                     </ul>\
                   </li>\
-                </ol>\
-                <p>Este ejemplo demuestra la importancia de entender el orden little-endian del MSP430 y cómo las operaciones de byte y palabra afectan a la memoria:</p>\
-                <ul>\
-                  <li>En operaciones de palabra, el byte menos significativo se almacena en la dirección más baja.</li>\
-                  <li>En operaciones de byte, solo se afecta a la dirección especificada.</li>\
-                </ul>"
+                  <li><strong>MOV.B R5, &2002h</strong>\
+                    <ul>\
+                      <li>Mueve solo el byte menos significativo de R5 (34h) a la dirección 2002h.</li>\
+                      <li>La dirección 2003h no se modifica.</li>\
+                    </ul>\
+                  </li>\
+                </ol>"
             },
             {
             question: "2. Analiza la siguiente instrucción:\n\n<pre>XOR.W #BIT15, 0(R6)</pre>\n\n¿Cuántas palabras ocupa esta instrucción en memoria y cuántos ciclos tarda en ejecutarse?",
