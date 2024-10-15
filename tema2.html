@@ -286,13 +286,13 @@
             {
                 question: "6. Considera la siguiente secuencia de instrucciones:\n\n<pre>MOV.W #1234h, R5\nSWPB R5\nMOV.B R5, R6\nMOV.B R5, R7\nSWPB R5\nMOV.B R5, R8</pre>\n\n¿Cuáles serán los valores finales en R5, R6, R7 y R8?",
                 options: [
-                    "a) R5: 1234h, R6: 0034h, R7: 0012h, R8: 0034h",
+                    "a) R5: 3412h, R6: 0034h, R7: 0012h, R8: 0034h",
                     "b) R5: 3412h, R6: 0012h, R7: 0034h, R8: 0034h",
-                    "c) R5: 1234h, R6: 0034h, R7: 0034h, R8: 0012h",
+                    "c) R5: 1234h, R6: 0012h, R7: 0012h, R8: 0034h",
                     "d) R5: 3412h, R6: 0012h, R7: 0012h, R8: 0034h"
                 ],
-                correct: 3,
-                explanation: "La respuesta correcta es <strong>d) R5: 3412h, R6: 0012h, R7: 0012h, R8: 0034h</strong>.<br>\
+                correct: 2,
+                explanation: "La respuesta correcta es <strong>c) R5: 1234h, R6: 0012h, R7: 0012h, R8: 0034h</strong>.<br>\
                 <p>Análisis detallado:</p>\
                 <ol>\
                   <li><strong>MOV.W #1234h, R5</strong>\
@@ -309,13 +309,13 @@
                   <li><strong>MOV.B R5, R6</strong>\
                     <ul>\
                       <li>Mueve el byte menos significativo de R5 (12h) a R6</li>\
-                      <li>R6 contiene 0012h (asumiendo que el byte alto era 00h inicialmente)</li>\
+                      <li>R6 contiene 0012h (el byte más significativo se pone a 00h)</li>\
                     </ul>\
                   </li>\
                   <li><strong>MOV.B R5, R7</strong>\
                     <ul>\
                       <li>Mueve el byte menos significativo de R5 (12h) a R7</li>\
-                      <li>R7 contiene 0012h (asumiendo que el byte alto era 00h inicialmente)</li>\
+                      <li>R7 contiene 0012h (el byte más significativo se pone a 00h)</li>\
                     </ul>\
                   </li>\
                   <li><strong>SWPB R5</strong>\
@@ -327,7 +327,7 @@
                   <li><strong>MOV.B R5, R8</strong>\
                     <ul>\
                       <li>Mueve el byte menos significativo del R5 actual (34h) a R8</li>\
-                      <li>R8 contiene 0034h (asumiendo que el byte alto era 00h inicialmente)</li>\
+                      <li>R8 contiene 0034h (el byte más significativo se pone a 00h)</li>\
                     </ul>\
                   </li>\
                 </ol>\
@@ -335,8 +335,9 @@
                 <ul>\
                   <li>La instrucción SWPB (Swap Bytes) intercambia el byte alto y el bajo de un registro</li>\
                   <li>Las operaciones de byte (MOV.B) solo afectan al byte menos significativo del registro destino</li>\
-                  <li>En operaciones de byte, el byte más significativo del registro destino no se modifica</li>\
-                  <li>En este ejemplo, asumimos que los bytes altos de R6, R7 y R8 eran 00h inicialmente</li>"
+                  <li>En operaciones de byte, el byte más significativo del registro destino se pone a 00h</li>\
+                  <li>El valor final de R5 es 1234h, ya que se realiza SWPB dos veces, volviendo al valor original</li>\
+                </ul>"
             },
             {
                 question: "7. Analiza el siguiente código:\n\n<pre>MOV.W #1000h, SP\nPUSH.W #1234h\nPUSH.B #56h\nPOP.W R5\nPOP.W R6</pre>\n\n¿Cuáles serán los valores finales en R5, R6 y SP?",
@@ -398,8 +399,8 @@
                     "c) 2000h: 11h, 2001h: 00h, 2002h: 33h, 2003h: 00h, 2004h: 55h, 2005h: 00h, 2006h: 77h, 2007h: 00h",
                     "d) 2000h: 88h, 2001h: 00h, 2002h: 77h, 2003h: 00h, 2004h: 66h, 2005h: 00h, 2006h: 55h, 2007h: 00h"
                 ],
-                correct: 2,
-                explanation: "La respuesta correcta es <strong>c) 2000h: 11h, 2001h: 00h, 2002h: 33h, 2003h: 00h, 2004h: 55h, 2005h: 00h, 2006h: 77h, 2007h: 00h</strong>.<br>\
+                correct: 0,
+                explanation: "La respuesta correcta es <strong>a) 2000h: 11h, 2001h: 00h, 2002h: 22h, 2003h: 00h, 2004h: 33h, 2005h: 00h, 2006h: 44h, 2007h: 00h</strong>.<br><br>\
                 <p>Análisis detallado:</p>\
                 <ol>\
                   <li><strong>Inicialización</strong>\
@@ -423,22 +424,20 @@
                   </li>\
                   <li><strong>Efecto en la memoria</strong>\
                     <ul>\
-                      <li>Iteración 1: Copia 11h a 2000h, R6 se incrementa a 2002h</li>\
-                      <li>Iteración 2: Copia 22h a 2002h, R6 se incrementa a 2004h</li>\
-                      <li>Iteración 3: Copia 33h a 2004h, R6 se incrementa a 2006h</li>\
-                      <li>Iteración 4: Copia 44h a 2006h, R6 se incrementa a 2008h</li>\
-                      <li>Iteración 5: Copia 55h a 2008h, R6 se incrementa a 200Ah</li>\
-                      <li>Iteración 6: Copia 66h a 200Ah, R6 se incrementa a 200Ch</li>\
-                      <li>Iteración 7: Copia 77h a 200Ch, R6 se incrementa a 200Eh</li>\
-                      <li>Iteración 8: Copia 88h a 200Eh, R6 se incrementa a 2010h</li>\
+                      <li>Iteración 1: Copia 11h a 2000h, R5 = 1001h, R6 se incrementa a 2002h</li>\
+                      <li>Iteración 2: Copia 22h a 2002h, R5 = 1002h, R6 se incrementa a 2004h</li>\
+                      <li>Iteración 3: Copia 33h a 2004h, R5 = 1003h, R6 se incrementa a 2006h</li>\
+                      <li>Iteración 4: Copia 44h a 2006h, R5 = 1004h, R6 se incrementa a 2008h</li>\
+                      <li>Las iteraciones 5-8 copian bytes a direcciones fuera del rango especificado en la pregunta</li>\
                     </ul>\
                   </li>\
                 </ol>\
                 <p>Notas importantes:</p>\
                 <ul>\
+                  <li>R5 se incrementa en 1 en cada iteración (@R5+), por lo que se leen bytes consecutivos de la fuente</li>\
                   <li>INCD R6 incrementa R6 en 2, dejando un byte sin modificar entre cada byte copiado</li>\
                   <li>Los bytes no modificados mantienen su valor original (asumimos 00h en este caso)</li>\
-                  <li>Solo se copian los bytes impares de la fuente al destino debido al incremento de 2 en R6</li>\
+                  <li>Todos los bytes de la fuente se copian, pero a direcciones alternadas en el destino</li>\
                 </ul>"
             }
         ];
