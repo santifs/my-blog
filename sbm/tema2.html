@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoevaluación Tema 2 - CPU MSP430</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .quiz-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .explanation {
+            background-color: #e7f3fe;
+            border-left: 6px solid #2196F3;
+            margin-bottom: 15px;
+            padding: 10px;
+            display: none;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Autoevaluación Tema 2 - CPU MSP430</h1>
+        <div id="quiz"></div>
+        <button id="submit">Enviar respuestas</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "1. Considera la siguiente secuencia de instrucciones:\n\n<pre>MOV.W #1234, R5\nMOV.W R5, &2000\nMOV.B R5, &2002</pre>\n\n¿Cuál será el contenido de las direcciones de memoria 2000, 2001, 2002 y 2003 después de ejecutar estas instrucciones?",
+                options: [
+                    "a) 2000: 34; 2001: 12; 2002: 34; 2003: sin cambios",
+                    "b) 2000: 12; 2001: 34; 2002: 34; 2003: sin cambios",
+                    "c) 2000: 34; 2001: 12; 2002: 34; 2003: 12",
+                    "d) 2000: 12; 2001: 34; 2002: 34; 2003: 00"
+                ],
+                correct: 0,
+                explanation: "La respuesta correcta es <strong>a) 2000: 34, 2001: 12, 2002: 34, 2003: sin cambios</strong>.<br>\
+                <p>Análisis paso a paso:</p>\
+                <ol>\
+                  <li><strong>MOV.W #1234, R5</strong> - Carga el valor decimal 1234 en R5.</li>\
+                  <li><strong>MOV.W R5, &2000</strong> - Mueve el contenido de R5 a la dirección 2000.\
+                    <ul>\
+                      <li>Como el MSP430 es little-endian, el byte menos significativo (34) se almacena en 2000 y el más significativo (12) en 2001.</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>MOV.B R5, &2002</strong> - Mueve solo el byte menos significativo de R5 (34) a la dirección 2002.\
+                    <ul>\
+                      <li>La dirección 2003 no se modifica.</li>\
+                    </ul>\
+                  </li>\
+                </ol>\
+                <p>Este ejemplo demuestra la importancia de entender el orden little-endian del MSP430 y cómo las operaciones de byte y palabra afectan a la memoria:</p>\
+                <ul>\
+                  <li>En operaciones de palabra, el byte menos significativo se almacena en la dirección más baja.</li>\
+                  <li>En operaciones de byte, solo se afecta a la dirección especificada.</li>\
+                </ul>"
+            },
+            {
+            question: "2. Analiza la siguiente instrucción:\n\n<pre>XOR.W #BIT15, 0(R6)</pre>\n\n¿Cuántas palabras ocupa esta instrucción en memoria y cuántos ciclos tarda en ejecutarse?",
+            options: [
+                "a) 2 palabras, 4 ciclos",
+                "b) 3 palabras, 5 ciclos",
+                "c) 3 palabras, 6 ciclos",
+                "d) 2 palabras, 5 ciclos"
+            ],
+            correct: 2,
+            explanation: "La respuesta correcta es <strong>c) 3 palabras, 6 ciclos</strong>.<br>\
+                <p>Análisis detallado:</p>\
+                <ol>\
+                  <li><strong>Palabras en memoria:</strong>\
+                    <ul>\
+                      <li>1 palabra: Código de operación XOR.W y modos de direccionamiento</li>\
+                      <li>1 palabra: Valor de #BIT15 (equivalente a 0x8000)</li>\
+                      <li>1 palabra: Desplazamiento 0 para el modo indexado 0(R6)</li>\
+                    </ul>\
+                    <strong>Total: 3 palabras</strong>\
+                  </li>\
+                  <li><strong>Ciclos de ejecución:</strong>\
+                    <ul>\
+                      <li>1 ciclo: Búsqueda de la instrucción</li>\
+                      <li>1 ciclo: Lectura del operando inmediato (#BIT15)</li>\
+                      <li>2 ciclos: Modo indexado (1 para dirección base, 1 para operando)</li>\
+                      <li>1 ciclo: Lectura del operando de memoria</li>\
+                      <li>1 ciclo: Escritura del resultado en memoria</li>\
+                    </ul>\
+                    <strong>Total: 6 ciclos</strong>\
+                  </li>\
+                </ol>\
+                <p>Notas importantes:</p>\
+                <ul>\
+                  <li>BIT15 es una constante predefinida en el MSP430, equivalente a 0x8000.</li>\
+                  <li>El uso de #BIT15 es más idiomático que #0x8000 para operaciones de manipulación de bits.</li>\
+                  <li>Aunque se use una constante predefinida, sigue ocupando una palabra en memoria.</li>\
+                  <li>El modo indexado 0(R6) requiere una palabra adicional, incluso cuando el desplazamiento es 0.</li>\
+                </ul>"
+            },
+            {
+                question: "3. Considera el siguiente fragmento de código:\n\n<pre>TABLA: .byte 0Ah, 14h\n       .word 1234h\n\nMOV.W #TABLA, R5\nMOV.B @R5+, R6\nMOV.B @R5+, R7\nMOV.W @R5, R8</pre>\n\n¿Cuáles serán los valores finales en R6, R7 y R8?",
+                options: [
+                    "a) R6: 0Ah, R7: 14h, R8: 1234h",
+                    "b) R6: 14h, R7: 0Ah, R8: 3412h",
+                    "c) R6: 0Ah, R7: 14h, R8: 3412h",
+                    "d) R6: 14h, R7: 0Ah, R8: 1234h"
+                ],
+                correct: 0,
+                explanation: "La respuesta correcta es <strong>a) R6: 0Ah, R7: 14h, R8: 1234h</strong>.<br>\
+                <p>Análisis detallado:</p>\
+                <ol>\
+                  <li><strong>Definición de TABLA</strong>\
+                    <ul>\
+                      <li>Se define TABLA con dos bytes (0Ah y 14h) seguidos de una palabra (1234h).</li>\
+                      <li>La 'h' al final indica que son valores hexadecimales en la notación del MSP430.</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>MOV.W #TABLA, R5</strong>\
+                    <ul>\
+                      <li>Carga la dirección de TABLA en R5.</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>MOV.B @R5+, R6</strong>\
+                    <ul>\
+                      <li>Lee el primer byte (0Ah) y lo guarda en R6.</li>\
+                      <li>R5 se incrementa para apuntar al segundo byte.</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>MOV.B @R5+, R7</strong>\
+                    <ul>\
+                      <li>Lee el segundo byte (14h) y lo guarda en R7.</li>\
+                      <li>R5 ahora apunta al inicio de la palabra 1234h.</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>MOV.W @R5, R8</strong>\
+                    <ul>\
+                      <li>Lee la palabra completa (1234h) y la guarda en R8.</li>\
+                    </ul>\
+                  </li>\
+                </ol>\
+                <p>Notas importantes:</p>\
+                <ul>\
+                  <li>En el ensamblador del MSP430, los números hexadecimales se indican con 'h' al final.</li>\
+                  <li>Para hexadecimales que comienzan con una letra (A-F), se añade un '0' al principio (como en 0Ah).</li>\
+                  <li>Las operaciones de byte (MOV.B) solo afectan al byte menos significativo del registro destino, poniendo a cero el byte más significativo.</li>\
+                  <li>La operación de palabra (MOV.W) lee los dos bytes en el orden correcto, reconstruyendo 1234h en R8.</li>"
+            },
+            {
+            question: "4. Dada la siguiente instrucción:\n\n<pre>AND.W #1234h, &2000h</pre>\n\nSi inicialmente la dirección 2000h contiene ABCDh, ¿cuál será el resultado después de la ejecución y cuántos ciclos tardará en completarse?",
+            options: [
+                "a) Resultado: 0204h, 5 ciclos",
+                "b) Resultado: 2204h, 6 ciclos",
+                "c) Resultado: 0204h, 6 ciclos",
+                "d) Resultado: 2204h, 5 ciclos"
+            ],
+            correct: 2,
+            explanation: "La respuesta correcta es <strong>c) Resultado: 0204h, 6 ciclos</strong>.<br>\
+                <p>Análisis detallado:</p>\
+                <ol>\
+                  <li><strong>Operación AND</strong>\
+                    <ul>\
+                      <li>Valor en memoria (ABCDh): 1010 1011 1100 1101</li>\
+                      <li>Valor inmediato (1234h):  0001 0010 0011 0100</li>\
+                      <li>Resultado (AND):          0000 0010 0000 0100 (0204h)</li>\
+                      <li>La operación AND se realiza bit a bit, resultando en 1 solo cuando ambos bits son 1.</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>Ciclos de ejecución</strong>\
+                    <ul>\
+                      <li>1 ciclo: Buscar la instrucción</li>\
+                      <li>1 ciclo: Leer el operando inmediato (#1234h)</li>\
+                      <li>2 ciclos: Calcular la dirección absoluta (&2000h)</li>\
+                      <li>1 ciclo: Leer el contenido de la memoria (ABCDh)</li>\
+                      <li>1 ciclo: Escribir el resultado (0204h) en memoria</li>\
+                      <li><strong>Total: 6 ciclos</strong></li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>Modos de direccionamiento</strong>\
+                    <ul>\
+                      <li>Fuente: Inmediato (#1234h)</li>\
+                      <li>Destino: Absoluto (&2000h)</li>\
+                    </ul>\
+                  </li>\
+                </ol>"
+            },
+            {
+            question: "5. Analiza el siguiente código:\n\n<pre>MOV.W #1000h, R5\nMOV.W #2000h, R6\nMOV.W @R5+, 0(R6)\nMOV.W @R5+, 2(R6)</pre>\n\nSi la dirección 1000h contiene ABCDh y 1002h contiene 1234h, ¿cuál será el contenido de las direcciones 2000h, 2001h, 2002h y 2003h después de ejecutar estas instrucciones?",
+            options: [
+                "a) 2000h: CDh, 2001h: ABh, 2002h: 34h, 2003h: 12h",
+                "b) 2000h: ABh, 2001h: CDh, 2002h: 12h, 2003h: 34h",
+                "c) 2000h: CDh, 2001h: ABh, 2002h: 12h, 2003h: 34h",
+                "d) 2000h: ABh, 2001h: CDh, 2002h: 34h, 2003h: 12h"
+            ],
+            correct: 0,
+            explanation: "La respuesta correcta es <strong>a) 2000h: CDh, 2001h: ABh, 2002h: 34h, 2003h: 12h</strong>.<br>\
+                <p>Análisis detallado:</p>\
+                <ol>\
+                  <li><strong>MOV.W #1000h, R5</strong>\
+                    <ul>\
+                      <li>Carga 1000h en R5</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>MOV.W #2000h, R6</strong>\
+                    <ul>\
+                      <li>Carga 2000h en R6</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>MOV.W @R5+, 0(R6)</strong>\
+                    <ul>\
+                      <li>Mueve la palabra en 1000h (ABCDh) a la dirección contenida en R6 (2000h)</li>\
+                      <li>Como el MSP430 es little-endian, CDh se almacena en 2000h y ABh en 2001h</li>\
+                      <li>R5 se incrementa a 1002h</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>MOV.W @R5+, 2(R6)</strong>\
+                    <ul>\
+                      <li>Mueve la palabra en 1002h (1234h) a la dirección R6 + 2 (2002h)</li>\
+                      <li>34h se almacena en 2002h y 12h en 2003h</li>\
+                      <li>R5 se incrementa a 1004h</li>\
+                    </ul>\
+                  </li>\
+                </ol>\
+                <p>Notas importantes:</p>\
+                <ul>\
+                  <li>El MSP430 utiliza orden little-endian, lo que significa que el byte menos significativo se almacena en la dirección más baja</li>\
+                  <li>@R5+ es un modo de direccionamiento indirecto con autoincremento</li>\
+                  <li>0(R6) y 2(R6) son ejemplos de modo de direccionamiento indexado</li>\
+                  <li>Las operaciones de palabra (.W) mueven 16 bits (2 bytes) a la vez</li>\
+                </ul>"
+            },
+            {
+                question: "6. Considera la siguiente secuencia de instrucciones:\n\n<pre>MOV.W #1234h, R5\nSWPB R5\nMOV.B R5, R6\nMOV.B R5, R7\nSWPB R5\nMOV.B R5, R8</pre>\n\n¿Cuáles serán los valores finales en R5, R6, R7 y R8?",
+                options: [
+                    "a) R5: 1234h, R6: 0034h, R7: 0012h, R8: 0034h",
+                    "b) R5: 3412h, R6: 0012h, R7: 0034h, R8: 0034h",
+                    "c) R5: 1234h, R6: 0034h, R7: 0034h, R8: 0012h",
+                    "d) R5: 3412h, R6: 0012h, R7: 0012h, R8: 0034h"
+                ],
+                correct: 3,
+                explanation: "La respuesta correcta es <strong>d) R5: 3412h, R6: 0012h, R7: 0012h, R8: 0034h</strong>.<br>\
+                <p>Análisis detallado:</p>\
+                <ol>\
+                  <li><strong>MOV.W #1234h, R5</strong>\
+                    <ul>\
+                      <li>Carga 1234h en R5</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>SWPB R5</strong>\
+                    <ul>\
+                      <li>Intercambia los bytes en R5</li>\
+                      <li>R5 ahora contiene 3412h</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>MOV.B R5, R6</strong>\
+                    <ul>\
+                      <li>Mueve el byte menos significativo de R5 (12h) a R6</li>\
+                      <li>R6 contiene 0012h (asumiendo que el byte alto era 00h inicialmente)</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>MOV.B R5, R7</strong>\
+                    <ul>\
+                      <li>Mueve el byte menos significativo de R5 (12h) a R7</li>\
+                      <li>R7 contiene 0012h (asumiendo que el byte alto era 00h inicialmente)</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>SWPB R5</strong>\
+                    <ul>\
+                      <li>Intercambia los bytes en R5 nuevamente</li>\
+                      <li>R5 vuelve a contener 1234h</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>MOV.B R5, R8</strong>\
+                    <ul>\
+                      <li>Mueve el byte menos significativo del R5 actual (34h) a R8</li>\
+                      <li>R8 contiene 0034h (asumiendo que el byte alto era 00h inicialmente)</li>\
+                    </ul>\
+                  </li>\
+                </ol>\
+                <p>Notas importantes:</p>\
+                <ul>\
+                  <li>La instrucción SWPB (Swap Bytes) intercambia el byte alto y el bajo de un registro</li>\
+                  <li>Las operaciones de byte (MOV.B) solo afectan al byte menos significativo del registro destino</li>\
+                  <li>En operaciones de byte, el byte más significativo del registro destino no se modifica</li>\
+                  <li>En este ejemplo, asumimos que los bytes altos de R6, R7 y R8 eran 00h inicialmente</li>"
+            },
+            {
+                question: "7. Analiza el siguiente código:\n\n<pre>MOV.W #1000h, SP\nPUSH.W #1234h\nPUSH.B #56h\nPOP.W R5\nPOP.W R6</pre>\n\n¿Cuáles serán los valores finales en R5, R6 y SP?",
+                options: [
+                    "a) R5: 0056h, R6: 1234h, SP: 1000h",
+                    "b) R5: 5600h, R6: 1234h, SP: 1000h",
+                    "c) R5: 0056h, R6: 1234h, SP: 0FFEh",
+                    "d) R5: 5600h, R6: 1234h, SP: 0FFEh"
+                ],
+                correct: 0,
+                explanation: "La respuesta correcta es <strong>a) R5: 0056h, R6: 1234h, SP: 1000h</strong>.<br>\
+                <p>Análisis detallado:</p>\
+                <ol>\
+                  <li><strong>MOV.W #1000h, SP</strong>\
+                    <ul>\
+                      <li>Inicializa SP (Stack Pointer) a 1000h</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>PUSH.W #1234h</strong>\
+                    <ul>\
+                      <li>Decrementa SP en 2: SP = 0FFEh</li>\
+                      <li>Guarda 1234h en la dirección 0FFEh-0FFFh (34h en 0FFEh, 12h en 0FFFh)</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>PUSH.B #56h</strong>\
+                    <ul>\
+                      <li>Decrementa SP en 2 (aunque solo se guarde un byte): SP = 0FFCh</li>\
+                      <li>Guarda 56h en la dirección 0FFCh, la dirección 0FFDh queda sin modificar</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>POP.W R5</strong>\
+                    <ul>\
+                      <li>Lee una palabra desde la dirección apuntada por SP (0FFCh-0FFDh)</li>\
+                      <li>R5 recibe 0056h (56h de 0FFCh y el byte no modificado de 0FFDh)</li>\
+                      <li>Incrementa SP en 2: SP = 0FFEh</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>POP.W R6</strong>\
+                    <ul>\
+                      <li>Lee una palabra desde la dirección apuntada por SP (0FFEh-0FFFh)</li>\
+                      <li>R6 recibe 1234h</li>\
+                      <li>Incrementa SP en 2: SP = 1000h</li>\
+                    </ul>\
+                  </li>\
+                </ol>\
+                <p>Notas importantes:</p>\
+                <ul>\
+                  <li>El MSP430 usa una pila que crece hacia direcciones más bajas (full descending stack)</li>\
+                  <li>PUSH.B aún decrementa SP en 2 para mantener la alineación de palabra, pero solo modifica un byte</li>\
+                  <li>En operaciones de pila, los bytes se almacenan en orden little-endian</li>\
+                  <li>POP.W siempre lee una palabra completa (2 bytes), independientemente de cómo se hayan pusheado los datos</li>\
+                </ul>"
+            },
+            {
+                question: "8. Analiza el siguiente fragmento de código:\n\n<pre>MOV.W #1000h, R5\nMOV.W #2000h, R6\nMOV.W #8, R7\nLOOP: MOV.B @R5+, 0(R6)\n      INCD R6\n      DEC R7\n      JNZ LOOP</pre>\n\nSi la memoria desde 1000h contiene los bytes 11h, 22h, 33h, 44h, 55h, 66h, 77h, 88h, ¿cuál será el contenido de las direcciones desde 2000h hasta 2007h después de la ejecución?",
+                options: [
+                    "a) 2000h: 11h, 2001h: 00h, 2002h: 22h, 2003h: 00h, 2004h: 33h, 2005h: 00h, 2006h: 44h, 2007h: 00h",
+                    "b) 2000h: 11h, 2001h: 22h, 2002h: 33h, 2003h: 44h, 2004h: 55h, 2005h: 66h, 2006h: 77h, 2007h: 88h",
+                    "c) 2000h: 11h, 2001h: 00h, 2002h: 33h, 2003h: 00h, 2004h: 55h, 2005h: 00h, 2006h: 77h, 2007h: 00h",
+                    "d) 2000h: 88h, 2001h: 00h, 2002h: 77h, 2003h: 00h, 2004h: 66h, 2005h: 00h, 2006h: 55h, 2007h: 00h"
+                ],
+                correct: 2,
+                explanation: "La respuesta correcta es <strong>c) 2000h: 11h, 2001h: 00h, 2002h: 33h, 2003h: 00h, 2004h: 55h, 2005h: 00h, 2006h: 77h, 2007h: 00h</strong>.<br>\
+                <p>Análisis detallado:</p>\
+                <ol>\
+                  <li><strong>Inicialización</strong>\
+                    <ul>\
+                      <li>R5 se inicializa a 1000h (dirección fuente)</li>\
+                      <li>R6 se inicializa a 2000h (dirección destino)</li>\
+                      <li>R7 se inicializa a 8 (contador de bucle)</li>\
+                    </ul>\
+                  </li>\
+                  <li><strong>Bucle LOOP</strong>\
+                    <ul>\
+                      <li>El bucle se ejecuta 8 veces (controlado por R7)</li>\
+                      <li>En cada iteración:</li>\
+                      <ul>\
+                        <li><code>MOV.B @R5+, 0(R6)</code>: Copia un byte de la dirección en R5 a la dirección en R6, luego incrementa R5</li>\
+                        <li><code>INCD R6</code>: Incrementa R6 en 2</li>\
+                        <li><code>DEC R7</code>: Decrementa el contador</li>\
+                        <li><code>JNZ LOOP</code>: Salta al inicio del bucle si R7 no es cero</li>\
+                      </ul>\
+                    </ul>\
+                  </li>\
+                  <li><strong>Efecto en la memoria</strong>\
+                    <ul>\
+                      <li>Iteración 1: Copia 11h a 2000h, R6 se incrementa a 2002h</li>\
+                      <li>Iteración 2: Copia 22h a 2002h, R6 se incrementa a 2004h</li>\
+                      <li>Iteración 3: Copia 33h a 2004h, R6 se incrementa a 2006h</li>\
+                      <li>Iteración 4: Copia 44h a 2006h, R6 se incrementa a 2008h</li>\
+                      <li>Iteración 5: Copia 55h a 2008h, R6 se incrementa a 200Ah</li>\
+                      <li>Iteración 6: Copia 66h a 200Ah, R6 se incrementa a 200Ch</li>\
+                      <li>Iteración 7: Copia 77h a 200Ch, R6 se incrementa a 200Eh</li>\
+                      <li>Iteración 8: Copia 88h a 200Eh, R6 se incrementa a 2010h</li>\
+                    </ul>\
+                  </li>\
+                </ol>\
+                <p>Notas importantes:</p>\
+                <ul>\
+                  <li>INCD R6 incrementa R6 en 2, dejando un byte sin modificar entre cada byte copiado</li>\
+                  <li>Los bytes no modificados mantienen su valor original (asumimos 00h en este caso)</li>\
+                  <li>Solo se copian los bytes impares de la fuente al destino debido al incremento de 2 en R6</li>\
+                </ul>"
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz');
+        const resultContainer = document.getElementById('result');
+        const submitButton = document.getElementById('submit');
+
+        function buildQuiz() {
+            let output = '';
+            quizData.forEach((questionData, questionNumber) => {
+                output += `
+                    <div class="question">
+                        <p>${questionData.question}</p>
+                        <ul class="options">
+                            ${questionData.options.map((option, index) => `
+                                <li>
+                                    <input type="radio" name="question${questionNumber}" value="${index}" id="q${questionNumber}o${index}">
+                                    <label for="q${questionNumber}o${index}">${option}</label>
+                                </li>
+                            `).join('')}
+                        </ul>
+                        <div class="explanation" id="explanation${questionNumber}">
+                            ${questionData.explanation}
+                        </div>
+                    </div>
+                `;
+            });
+            quizContainer.innerHTML = output;
+        }
+
+        function showResults() {
+            const answerContainers = quizContainer.querySelectorAll('.options');
+            let numCorrect = 0;
+
+            quizData.forEach((questionData, questionNumber) => {
+                const answerContainer = answerContainers[questionNumber];
+                const selector = `input[name=question${questionNumber}]:checked`;
+                const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+                const explanationDiv = document.getElementById(`explanation${questionNumber}`);
+
+                if (userAnswer == questionData.correct) {
+                    numCorrect++;
+                    answerContainers[questionNumber].style.color = 'green';
+                } else {
+                    answerContainers[questionNumber].style.color = 'red';
+                }
+
+                explanationDiv.style.display = 'block';
+            });
+
+            resultContainer.innerHTML = `${numCorrect} de ${quizData.length} respuestas correctas`;
+            submitButton.style.display = 'none';
+        }
+
+        buildQuiz();
+
+        submitButton.addEventListener('click', showResults);
+    </script>
+</body>
+</html>
