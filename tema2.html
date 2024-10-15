@@ -121,8 +121,8 @@
                 "c) 3 palabras, 6 ciclos",
                 "d) 2 palabras, 5 ciclos"
             ],
-            correct: 2,
-            explanation: "La respuesta correcta es <strong>c) 3 palabras, 6 ciclos</strong>.<br>\
+            correct: 1,
+            explanation: "La respuesta correcta es <strong>b) 3 palabras, 5 ciclos</strong>.<br>\
                 <p>Análisis detallado:</p>\
                 <ol>\
                   <li><strong>Palabras en memoria:</strong>\
@@ -136,9 +136,8 @@
                   <li><strong>Ciclos de ejecución:</strong>\
                     <ul>\
                       <li>1 ciclo: Búsqueda de la instrucción</li>\
-                      <li>1 ciclo: Lectura del operando inmediato (#BIT15)</li>\
-                      <li>2 ciclos: Modo indexado (1 para dirección base, 1 para operando)</li>\
-                      <li>1 ciclo: Lectura del operando de memoria</li>\
+                      <li>1 ciclo: Lectura del operando inmediato (#BIT15) (@Rf+ en la tabla)</li>\
+                      <li>2 ciclos: Cálculo de la dirección de destino, modo indexado (1 para dirección base, 1 para operando)</li>\
                       <li>1 ciclo: Escritura del resultado en memoria</li>\
                     </ul>\
                     <strong>Total: 6 ciclos</strong>\
@@ -208,8 +207,8 @@
                 "c) Resultado: 0204h, 6 ciclos",
                 "d) Resultado: 2204h, 5 ciclos"
             ],
-            correct: 2,
-            explanation: "La respuesta correcta es <strong>c) Resultado: 0204h, 6 ciclos</strong>.<br>\
+            correct: 0,
+            explanation: "La respuesta correcta es <strong>a) Resultado: 0204h, 5 ciclos</strong>.<br>\
                 <p>Análisis detallado:</p>\
                 <ol>\
                   <li><strong>Operación AND</strong>\
@@ -224,10 +223,10 @@
                     <ul>\
                       <li>1 ciclo: Buscar la instrucción</li>\
                       <li>1 ciclo: Leer el operando inmediato (#1234h)</li>\
-                      <li>2 ciclos: Calcular la dirección absoluta (&2000h)</li>\
+                      <li>1 ciclo: Calcular la dirección absoluta (&2000h)</li>\
                       <li>1 ciclo: Leer el contenido de la memoria (ABCDh)</li>\
                       <li>1 ciclo: Escribir el resultado (0204h) en memoria</li>\
-                      <li><strong>Total: 6 ciclos</strong></li>\
+                      <li><strong>Total: 5 ciclos</strong></li>\
                     </ul>\
                   </li>\
                   <li><strong>Modos de direccionamiento</strong>\
