@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Snake Game</h1>
+        <canvas id="gameCanvas"></canvas>
+        <div class="game-info">
+            <p>Puntuación: <span id="score">0</span></p>
+        </div>
+        <div class="game-controls">
+            <button id="startButton">Iniciar Juego</button>
+        </div>
+        <div class="rankings">
+            <h2>Top 10 Mundial</h2>
+            <table id="rankingTable">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Jugador</th>
+                        <th>Puntos</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody id="rankingBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal para nombre del jugador -->
+    <div id="nameModal" class="modal">
+        <div class="modal-content">
+            <h2>¡Nueva puntuación!</h2>
+            <p>Introduce tu nombre para guardar tu puntuación:</p>
+            <input type="text" id="playerName" maxlength="20" placeholder="Tu nombre">
+            <button id="saveScore">Guardar</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
