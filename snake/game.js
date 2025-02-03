@@ -265,6 +265,11 @@ class SnakeGame {
     handleKeyPress(event) {
         if (!this.gameStarted) return;
 
+        // Evitar el scroll con las teclas de flecha
+        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+            event.preventDefault();
+        }
+
         switch (event.key) {
             case 'ArrowUp':
                 if (this.direction !== 'down') this.nextDirection = 'up';
